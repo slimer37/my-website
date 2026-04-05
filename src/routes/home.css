@@ -46,10 +46,12 @@
 
     transform: scale(1);
     transition: 300ms ease-in;
+
+    filter: drop-shadow(0 0 0.5rem gray);
 }
 
 .tool-logo.selected {
-    filter: brightness(1.1) drop-shadow(0 0 0.5rem rgba(255, 255, 255, 0.1));
+    filter: drop-shadow(0 0 0.5rem gray) brightness(1.1);
     transform: scale(1.2);
 
     transition: 100ms ease-out;
@@ -104,7 +106,7 @@
     right: -10px;
     opacity: 0;
     border-radius: 5px;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(255, 255, 255, 0.5);
     transition: inherit;
 }
 

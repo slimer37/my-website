@@ -22,8 +22,8 @@ function MakeWaves() {
     >
       <defs>
         <linearGradient id="gradient" gradientTransform="rotate(90)">
-          <stop offset="10%" stopColor="#3c3c3c62" />
-          <stop offset="50%" stopColor="#0000" />
+          <stop offset="10%" stopColor="#ffffff62" />
+          <stop offset="50%" stopColor="#ffffff00" />
         </linearGradient>
       </defs>
     </Wave>
@@ -39,8 +39,8 @@ function MakeWaves() {
     >
       <defs>
         <linearGradient id="gradient2" gradientTransform="rotate(90)">
-          <stop offset="10%" stopColor="#3c3c3c19" />
-          <stop offset="50%" stopColor="#0000" />
+          <stop offset="10%" stopColor="#f0f0f019" />
+          <stop offset="50%" stopColor="#f0f0f000" />
         </linearGradient>
       </defs>
     </Wave>
