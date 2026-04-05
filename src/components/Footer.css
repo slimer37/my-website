@@ -1,0 +1,32 @@
+footer {
+    font-family: 'Jetbrains Mono', sans-serif;
+    background-image: linear-gradient(transparent, var(--sec-bg));
+    padding: 40px 0px;
+    color: var(--text);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    z-index: -100;
+}
+
+.footer-column {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+}
+
+.footer-item {
+    margin: 0;
+}
+
+.footer-link {
+    text-decoration: none;
+}
+
+td {
+    padding: 1px 20px 1px 0px;
+}
