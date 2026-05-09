@@ -1,10 +1,15 @@
+.portfolio {
+    margin: 5px;
+}
+
 .row {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
 
-    margin: 0;
+    margin: -5px;
     max-height: 500px;
+    overflow-x: scroll;
 }
 
 .project-tile {
@@ -13,7 +18,7 @@
     display: flex;
     flex-direction: column;
     background-color: var(--secondary);
-    color: black;
+    color: white;
     margin: 5px;
     padding: 20px;
     text-decoration: none;
@@ -45,8 +50,6 @@
     background: url("/src/assets/portfolio/thumbs/embackground.png");
     background-size: cover;
     background-position-x: center;
-
-    color: var(--text);
 }
 
 .shadow {
@@ -74,23 +77,11 @@
     background: url("/src/assets/portfolio/gallery/mobboss.png");
     background-size: cover;
     background-position: center;
-
-    color: var(--text);
 }
 
 .cc-thumb {
     margin: auto;
     height: 95%;
-}
-
-.wip-tile {
-    background: repeating-linear-gradient(-45deg,
-            var(--secondary),
-            var(--secondary) 30px,
-            var(--sec-bg) 30px,
-            var(--sec-bg) 60px);
-
-    color: var(--text);
 }
 
 .wip {
@@ -100,19 +91,6 @@
     font-weight: bold;
     font-family: 'Jost', sans-serif;
     font-size: 2em;
-}
-
-.empty-tile {
-    background-color: var(--secondary);
-    color: var(--text);
-}
-
-.empty-tile-content {
-    margin: auto;
-    text-align: center;
-    font-weight: 400;
-    font-family: 'Jost', sans-serif;
-    font-size: 4em;
 }
 
 .pixel-art {
