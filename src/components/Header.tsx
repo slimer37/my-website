@@ -29,7 +29,6 @@ function Header({ shrinks = false }: HeaderProps) {
           <h2 style={{margin: 0}}>Alfred Roy</h2>
         </Link>
         <nav className="nav-btn-group">
-          <NavLink className={({ isActive }) => NavButtonStyle(isActive)} to="/blog">Blog</NavLink>
           <NavLink className={({ isActive }) => NavButtonStyle(isActive)} to="/portfolio">Portfolio</NavLink>
           <a className="nav-btn button" href="https://slimer37.itch.io">Games&nbsp;<span className="material-symbols-outlined">
             arrow_right_alt
