@@ -32,6 +32,12 @@ function Portfolio() {
           {videoIds.map(id => <span className="project-tile wip-tile">{EmbedVideo(id)}</span>)}
         </div>
         <h2>Projects</h2>
+        <a className="wide-button" href="https://slimer37.itch.io" target="_blank" rel="noopener noreferrer">
+          Games on itch.io
+          <span className="material-symbols-outlined">
+            arrow_right_alt
+          </span>
+        </a>
         <div className="row">
           <a href="https://slimer37.itch.io/gtmk-jam-2021" className="project-tile emayhem-project-tile">
             GMTK 2021 Entry

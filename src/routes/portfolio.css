@@ -1,4 +1,6 @@
 .portfolio {
+    display: flex;
+    flex-direction: column;
     margin: 5px;
 }
 
@@ -10,6 +12,42 @@
     margin: -5px;
     max-height: 500px;
     overflow-x: scroll;
+}
+
+h2 {
+    margin-bottom: 10px;
+}
+
+.material-symbols-outlined {
+    font-size: 1.2em;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+.wide-button {
+    font: 20px "Jetbrains Mono", serif;
+    font-weight: bold;
+    transition-duration: 200ms;
+
+    justify-self: stretch;
+    margin-bottom: 15px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+
+    padding: 0.75rem 1.5rem;
+    background-color: var(--bg);
+    color: black;
+    text-decoration: none;
+
+    border-radius: 4px;
+    border: 3px solid black;
+}
+
+.wide-button:hover {
+    background-color: #dbdbdb;
 }
 
 .project-tile {
