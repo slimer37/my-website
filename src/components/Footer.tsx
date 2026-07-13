@@ -19,7 +19,7 @@ function Footer() {
           <table style={{ borderCollapse: 'collapse' }}>
             <tr>
               <td>Primary:</td>
-              <td>{EmailLink("alfredroym04@gmail.com")}</td>
+              <td>{EmailLink("alfredroymanongsong@gmail.com")}</td>
             </tr>
             <tr>
               <td>Games/Support:</td>
