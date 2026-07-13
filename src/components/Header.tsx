@@ -30,7 +30,7 @@ function Header({ shrinks = false }: HeaderProps) {
         </Link>
         <nav className="nav-btn-group">
           <NavLink className={({ isActive }) => NavButtonStyle(isActive)} to="/portfolio">Portfolio</NavLink>
-          <a className={NavButtonStyle(false)} href="/files/Alfred_Roy_Manongsong_Resume.pdf" target="_blank" rel="noopener noreferrer">Résumé&nbsp;<span className="material-symbols-outlined" style={{fontSize: "15pt"}}>
+          <a className={NavButtonStyle(false)} href="/files/Alfred_Roy_Manongsong_Resume.pdf" target="_blank" rel="noopener noreferrer">Résumé&nbsp;<span className="material-symbols-outlined" style={{fontSize: "100%"}}>
             open_in_new
           </span></a>
         </nav>
