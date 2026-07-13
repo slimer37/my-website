@@ -26,7 +26,7 @@ function Header({ shrinks = false }: HeaderProps) {
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
       <div className="header-group">
         <Link to="/" className="scaled-logo">
-          <h2 style={{ margin: 0 }}>Alfred Roy</h2>
+          <h2 style={{ margin: 0 }}>Alfred Roy Manongsong</h2>
         </Link>
         <nav className="nav-btn-group">
           <NavLink className={({ isActive }) => NavButtonStyle(isActive)} to="/portfolio">Portfolio</NavLink>
