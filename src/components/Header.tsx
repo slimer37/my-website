@@ -26,12 +26,12 @@ function Header({ shrinks = false }: HeaderProps) {
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
       <div className="header-group">
         <Link to="/" className="scaled-logo">
-          <h2 style={{margin: 0}}>Alfred Roy</h2>
+          <h2 style={{ margin: 0 }}>Alfred Roy</h2>
         </Link>
         <nav className="nav-btn-group">
           <NavLink className={({ isActive }) => NavButtonStyle(isActive)} to="/portfolio">Portfolio</NavLink>
-          <a className="nav-btn button" href="https://slimer37.itch.io">Games&nbsp;<span className="material-symbols-outlined">
-            arrow_right_alt
+          <a className={NavButtonStyle(false)} href="/files/Alfred_Roy_Manongsong_Resume.pdf" target="_blank" rel="noopener noreferrer">Résumé&nbsp;<span className="material-symbols-outlined" style={{fontSize: "15pt"}}>
+            open_in_new
           </span></a>
         </nav>
       </div>
