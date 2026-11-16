@@ -1,41 +1,44 @@
-import { ReactNode } from 'react'
+import { useEffect, useRef } from 'react'
+import type { ReactNode } from 'react'
 import './gallery.css'
 
-type ArtTileProps = {
-  url: string,
+type TileProps = {
+  file: string,
   inner: ReactNode
 }
 
-function ArtTile(props: ArtTileProps) {
-  let url = "gallery/" + props.url
+function ArtTile({ file, inner }: TileProps) {
+  const url = "gallery/" + file
 
   return <a href={url} className="art-tile" style={{ backgroundImage: `url(${url})` }}>
-    {props.inner}
+    {inner}
   </a>
 }
 
-type VideoTileProps = {
-  url: string,
-  inner: ReactNode,
+type VideoTileProps = TileProps & {
   controls?: boolean
 }
 
-function VideoTile(props: VideoTileProps) {
-  let url = "gallery/" + props.url
+// Autoplaying videos only play while on screen, so the page isn't decoding all of them at once.
+function VideoTile({ file, inner, controls = false }: VideoTileProps) {
+  const url = "gallery/" + file
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video || controls) return
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) video.play().catch(() => { })
+      else video.pause()
+    })
+    observer.observe(video)
+    return () => observer.disconnect()
+  }, [controls])
 
   return <a href={url} className="art-tile">
-    {
-      props.controls ?
-        <video controls loop muted>
-          <source src={url} type="video/mp4" />
-        </video>
-        :
-        <video autoPlay loop muted>
-          <source src={url} type="video/mp4" />
-        </video>
-    }
-
-    <div className="over-video">{props.inner}</div>
+    <video ref={videoRef} src={url} controls={controls} loop muted playsInline preload="metadata" />
+    <div className="over-video">{inner}</div>
   </a>
 }
 
@@ -47,24 +50,24 @@ function Gallery() {
       <h1 style={{ textAlign: 'center' }}>3D Art Gallery</h1>
       <h3 style={{ textAlign: 'center' }}>Click on any square to view the original image.</h3>
       <div className="gallery-grid">
-        <VideoTile url="mobboss.mp4" inner={<>PokÃ©mon Mafia</>} />
-        <ArtTile url="boxcutter.jpg" inner={<><q>Boxcutter</q>&nbsp;Boss</>} />
-        <ArtTile url="gramophone.png" inner={<>Gramophone</>} />
-        <VideoTile url="spacerotate.mp4" inner={<>Personality Cores</>} />
-        <ArtTile url="venom.png" inner={<>Venom</>} />
-        <ArtTile url="room.jpg" inner={<>Bedroom Replica</>} />
-        <VideoTile url="burgerlooped.mp4" inner={<>Burger Place</>} />
-        <ArtTile url="skullresult.jpg" inner={<>Low-Poly T-Rex Skull</>} />
-        <ArtTile url="gladosdone.jpg" inner={<>GLaDOS</>} />
-        <ArtTile url="bigdipper.jpg" inner={<>Big Dipper</>} />
-        <ArtTile url="opensign.png" inner={<>Open Sign</>} />
-        <VideoTile url="motiontrack.mp4" inner={<>VFX Test</>} />
-        <VideoTile url="factorio.mp4" inner={<>Factorio Inserters</>} />
-        <VideoTile url="firelegwalk.mp4" inner={<>Fireleg (Click to play)</>} controls />
-        <ArtTile url="buildingnight.png" inner={<>City Corner Building</>} />
-        <ArtTile url="funky.jpg" inner={<q>Funky Abstract</q>} />
-        <VideoTile url="ship.mp4" inner={<>Ship</>} />
-        <ArtTile url="lemon.png" inner={<q>Combustible Lemon</q>} />
+        <VideoTile file="mobboss.mp4" inner={<>Pokémon Mafia</>} />
+        <ArtTile file="boxcutter.jpg" inner={<><q>Boxcutter</q>&nbsp;Boss</>} />
+        <ArtTile file="gramophone.png" inner={<>Gramophone</>} />
+        <VideoTile file="spacerotate.mp4" inner={<>Personality Cores</>} />
+        <ArtTile file="venom.png" inner={<>Venom</>} />
+        <ArtTile file="room.jpg" inner={<>Bedroom Replica</>} />
+        <VideoTile file="burgerlooped.mp4" inner={<>Burger Place</>} />
+        <ArtTile file="skullresult.jpg" inner={<>Low-Poly T-Rex Skull</>} />
+        <ArtTile file="gladosdone.jpg" inner={<>GLaDOS</>} />
+        <ArtTile file="bigdipper.jpg" inner={<>Big Dipper</>} />
+        <ArtTile file="opensign.png" inner={<>Open Sign</>} />
+        <VideoTile file="motiontrack.mp4" inner={<>VFX Test</>} />
+        <VideoTile file="factorio.mp4" inner={<>Factorio Inserters</>} />
+        <VideoTile file="firelegwalk.mp4" inner={<>Fireleg (Click to play)</>} controls />
+        <ArtTile file="buildingnight.png" inner={<>City Corner Building</>} />
+        <ArtTile file="funky.jpg" inner={<q>Funky Abstract</q>} />
+        <VideoTile file="ship.mp4" inner={<>Ship</>} />
+        <ArtTile file="lemon.png" inner={<q>Combustible Lemon</q>} />
       </div>
     </>
   )
