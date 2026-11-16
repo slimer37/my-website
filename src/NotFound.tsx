@@ -60,9 +60,9 @@ function NotFound() {
     }, [typesErr])
 
     return (
-        <div className='container'>
+        <div className="not-found">
+            <img src={logoEyes} width="100px" style={{ position: 'relative', marginBottom: '-10px' }} />
             <h1 className="err">{errText}</h1>
-            <img src={logoEyes} width="100px" style={{ marginTop: '-10px', marginBottom: '10px' }} />
 
             <h2 style={{ margin: 0 }}>Page not found.</h2>
 
@@ -78,9 +78,7 @@ function NotFound() {
                 </i>
             </p>
 
-            <br />
-
-            <a className="button" href="/">Take me back</a>
+            <a className="home-link" href="/">Take me back</a>
         </div>
     )
 }

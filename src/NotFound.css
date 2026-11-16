@@ -1,16 +1,52 @@
 .err {
     font-size: 5em;
-    margin: 0px;
+    margin: 0 0 10px;
 }
 
-.container {
-    position: absolute;
-    height: 100%;
-    width: 100%;
+.not-found {
+    position: fixed;
+    inset: 0;
+    box-sizing: border-box;
+    padding: 20px;
+    overflow-y: auto;
+
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
+    text-align: center;
+}
+
+.not-found p {
+    max-width: 40ch;
+}
+
+.home-link {
+    margin-top: 24px;
+    padding: 10px 24px;
+
+    background-color: var(--bg);
+    color: black;
+    border: 3px solid black;
+    border-radius: 4px;
+
+    font-weight: bold;
+    text-decoration: none;
+
+    transition: background-color 150ms ease-out;
+}
+
+.home-link:hover {
+    background-color: #dbdbdb;
+}
+
+.home-link:active {
+    background-color: #cfcfcf;
+}
+
+.home-link:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
 }
 
 /* For wavy text */
