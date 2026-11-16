@@ -1,94 +1,82 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useState } from 'react'
 
 import logoEyes from './assets/images/logoeyes.png'
 
 import './NotFound.css'
 
+const messages = [
+    "Couldn't find that page.",
+    "Sorry. Turned up empty.",
+    "Nothing matched that.",
+    "Are you sure you've got it right?",
+    "Hmmm...",
+    "Maybe it's somewhere else.",
+    "Wrong number.",
+    "Wrong place.",
+    "...the end is never the end is never the end is never the end is never the end...",
+    "No.",
+    "[BUZZER SOUND]",
+    "wavyASK AGAIN LATER.",
+    "wavyCONCENTRATE AND ASK AGAIN.",
+    "wavyREPLY HAZY, TRY AGAIN."
+]
+
+const typeInterval = 100
+const typeDelay = 500
+const typeChance = 0.1
+const waveInterval = 40
+
+const initialErr = "037"
+
+const typing = [
+    "037|",
+    "03|",
+    "0|",
+    "|",
+    "4|",
+    "40|",
+    "404|",
+    "404"
+]
+
 function NotFound() {
-    const messages = [
-        "Couldn't find that page.",
-        "Sorry. Turned up empty.",
-        "Nothing matched that.",
-        "Are you sure you've got it right?",
-        "Hmmm...",
-        "Maybe it's somewhere else.",
-        "Wrong number.",
-        "Wrong place.",
-        "...the end is never the end is never the end is never the end is never the end...",
-        "No.",
-        "[BUZZER SOUND]",
-        "wavyASK AGAIN LATER.",
-        "wavyCONCENTRATE AND ASK AGAIN.",
-        "wavyREPLY HAZY, TRY AGAIN."
-    ]
+    // Rolled once per visit, not on every render
+    const [rawMessage] = useState(() => messages[Math.floor(Math.random() * messages.length)])
+    const [typesErr] = useState(() => Math.random() < typeChance)
+    const [errText, setErrText] = useState(typesErr ? initialErr : "404")
 
-    const typeInterval = 100
-    const typeDelay = 500
-    const typeChance = 0.1
-    const waveInterval = 40
-
-    const messageRef = useRef<HTMLElement>(null)
-    const errRef = useRef<HTMLHeadingElement>(null)
+    const wavy = rawMessage.startsWith("wavy")
+    const message = wavy ? rawMessage.substring(4) : rawMessage
 
     useEffect(() => {
         document.title = "404"
 
-        let text = messages[Math.floor(Math.random() * messages.length)]
+        if (!typesErr) return
 
-        const message = messageRef.current!
+        const timers = typing.map((text, index) =>
+            setTimeout(() => setErrText(text), index * typeInterval + typeDelay))
 
-        if (!text.startsWith("wavy")) {
-            message.innerHTML = text
-        } else {
-            text = text.substring(4)
-            message.innerHTML = text
-                .split("")
-                .map(letter => {
-                    return `<span>` + letter + `</span>`;
-                })
-                .join("");
-
-            Array.from(message.children).forEach((span, index) => {
-                setTimeout(() => {
-                    span.classList.add("wavy");
-                }, index * waveInterval);
-            });
-        }
-
-        if (Math.random() < typeChance) {
-            const errNumber = errRef.current!
-
-            const initial = "037"
-
-            const typing = [
-                "037|",
-                "03|",
-                "0|",
-                "|",
-                "4|",
-                "40|",
-                "404|",
-                "404"
-            ]
-
-            errNumber.innerHTML = initial
-
-            Array.from(typing).forEach((text, index) => {
-                setTimeout(() => {
-                    errNumber.innerHTML = text
-                }, index * typeInterval + typeDelay)
-            });
-        }
-    })
+        return () => timers.forEach(clearTimeout)
+    }, [typesErr])
 
     return (
         <div className='container'>
-            <h1 className="err" ref={errRef}>404</h1>
+            <h1 className="err">{errText}</h1>
             <img src={logoEyes} width="100px" style={{ marginTop: '-10px', marginBottom: '10px' }} />
 
             <h2 style={{ margin: 0 }}>Page not found.</h2>
 
-            <p><i ref={messageRef} style={{ color: '#718093' }}>{ }</i></p>
+            <p>
+                <i style={{ color: '#718093' }}>
+                    {wavy
+                        ? message.split("").map((letter, index) => (
+                            <span key={index} className="wavy" style={{ animationDelay: `${index * waveInterval}ms` }}>
+                                {letter}
+                            </span>
+                        ))
+                        : message}
+                </i>
+            </p>
 
             <br />
 
