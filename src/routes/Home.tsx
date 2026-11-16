@@ -2,48 +2,40 @@ import ToolLogo from '../components/ToolLogo'
 import './home.css'
 
 import unityLogo from '../assets/logos/unity_logo.svg';
-import { useState } from 'react';
+import { useId, useState } from 'react';
+import { useReducedMotion } from 'motion/react';
 import Wave from 'react-wavify';
 
 import paintStreak from '../assets/images/paint-streak.png'
 import paintStreak2 from '../assets/images/paint-streak-2.png'
 
-function MakeWaves() {
+const waveLayers = [
+  { heightPct: 60, amplitude: 100, speed: 0.025, stops: ['#ffffff62', '#ffffff00'] },
+  { heightPct: 40, amplitude: 50, speed: 0.05, stops: ['#f0f0f019', '#f0f0f000'] },
+]
+
+function Waves() {
+  const id = useId().replace(/:/g, '')
+  const reducedMotion = useReducedMotion()
+
   return <>
-    <Wave fill='url(#gradient)'
-      paused={false}
-      style={{ position: 'absolute', left: 0, bottom: 0, height: '60%' }}
-      options={{
-        height: 20,
-        amplitude: 100,
-        speed: 0.025,
-        points: 4
-      }}
-    >
-      <defs>
-        <linearGradient id="gradient" gradientTransform="rotate(90)">
-          <stop offset="10%" stopColor="#ffffff62" />
-          <stop offset="50%" stopColor="#ffffff00" />
-        </linearGradient>
-      </defs>
-    </Wave>
-    <Wave fill='url(#gradient2)'
-      paused={false}
-      style={{ position: 'absolute', left: 0, bottom: 0, height: '40%' }}
-      options={{
-        height: 20,
-        amplitude: 50,
-        speed: 0.05,
-        points: 4
-      }}
-    >
-      <defs>
-        <linearGradient id="gradient2" gradientTransform="rotate(90)">
-          <stop offset="10%" stopColor="#f0f0f019" />
-          <stop offset="50%" stopColor="#f0f0f000" />
-        </linearGradient>
-      </defs>
-    </Wave>
+    {waveLayers.map((layer, i) => {
+      const gradientId = `wave-gradient-${id}-${i}`
+      return (
+        <Wave key={i} fill={`url(#${gradientId})`}
+          paused={!!reducedMotion}
+          style={{ position: 'absolute', left: 0, bottom: 0, height: `${layer.heightPct}%` }}
+          options={{ height: 20, amplitude: layer.amplitude, speed: layer.speed, points: 4 }}
+        >
+          <defs>
+            <linearGradient id={gradientId} gradientTransform="rotate(90)">
+              <stop offset="10%" stopColor={layer.stops[0]} />
+              <stop offset="50%" stopColor={layer.stops[1]} />
+            </linearGradient>
+          </defs>
+        </Wave>
+      )
+    })}
   </>
 }
 
@@ -147,7 +139,7 @@ function Home() {
       <img src={paintStreak2} className="paint-streak" style={{ top: 0, left: -100 }} />
 
       <div style={{ position: 'absolute', width: '100%', height: '100%', top: 0, left: 0, zIndex: -500, overflow: 'hidden', pointerEvents: 'none' }}>
-        {MakeWaves()}
+        <Waves />
       </div>
 
       <p style={{ fontSize: '9pt', opacity: '50%', margin: 0, textAlign: 'right' }}>
