@@ -4,14 +4,34 @@ import './home.css'
 import unityLogo from '../assets/logos/unity_logo.svg';
 import { useId, useState } from 'react';
 import { useReducedMotion } from 'motion/react';
-import Wave from 'react-wavify';
+import Wave from '../components/Wave';
 
 import paintStreak from '../assets/images/paint-streak.png'
 import paintStreak2 from '../assets/images/paint-streak-2.png'
 
 const waveLayers = [
-  { heightPct: 60, amplitude: 100, speed: 0.025, stops: ['#ffffff62', '#ffffff00'] },
-  { heightPct: 40, amplitude: 50, speed: 0.05, stops: ['#f0f0f019', '#f0f0f000'] },
+  {
+    heightPct: 60,
+    baseline: 130,
+    harmonics: [
+      { amplitude: 30, wavelength: 900, speed: 0.3, phase: 0 },
+      { amplitude: 18, wavelength: 450, speed: -0.45, phase: 1.3 },
+      { amplitude: 9, wavelength: 230, speed: 0.7, phase: 2.1 },
+    ],
+    stops: ['#ffffffc4', '#ffffff00'],
+    fadeEnd: 50,
+  },
+  {
+    heightPct: 40,
+    baseline: 95,
+    harmonics: [
+      { amplitude: 20, wavelength: 700, speed: -0.55, phase: 0.7 },
+      { amplitude: 11, wavelength: 340, speed: 0.8, phase: 2.4 },
+      { amplitude: 6, wavelength: 170, speed: -1.0, phase: 4.0 },
+    ],
+    stops: ['#ffffff80', '#ffffff00'],
+    fadeEnd: 100,
+  },
 ]
 
 function Waves() {
@@ -24,13 +44,14 @@ function Waves() {
       return (
         <Wave key={i} fill={`url(#${gradientId})`}
           paused={!!reducedMotion}
-          style={{ position: 'absolute', left: 0, bottom: 0, height: `${layer.heightPct}%` }}
-          options={{ height: 20, amplitude: layer.amplitude, speed: layer.speed, points: 4 }}
+          height={`${layer.heightPct}%`}
+          baseline={layer.baseline}
+          harmonics={layer.harmonics}
         >
           <defs>
             <linearGradient id={gradientId} gradientTransform="rotate(90)">
               <stop offset="10%" stopColor={layer.stops[0]} />
-              <stop offset="50%" stopColor={layer.stops[1]} />
+              <stop offset={`${layer.fadeEnd}%`} stopColor={layer.stops[1]} />
             </linearGradient>
           </defs>
         </Wave>
