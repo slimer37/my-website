@@ -9,11 +9,11 @@ import { ProjectTile, VideoTile } from '../components/ProjectTile'
 
 import './portfolio.css'
 
-const videoIds: string[] = [
-  "XOmTZZrjrbM",
-  "4XTsVQlmsRc",
-  "E6ze2qa9GYc",
-  "41PoCimG538",
+const videos = [
+  { id: "XOmTZZrjrbM", title: "3D Spider Animation Test" },
+  { id: "4XTsVQlmsRc", title: "2D Platformer Swinging" },
+  { id: "E6ze2qa9GYc", title: "2D Top-Down Hyphae Controlled Mushroom" },
+  { id: "41PoCimG538", title: "3D Swinging Mushroom" },
 ]
 
 function Portfolio() {
@@ -22,8 +22,8 @@ function Portfolio() {
   return (
     <div className="m-1 flex flex-col">
       <h2>Prototypes</h2>
-      <div className="flex max-h-[500px] justify-evenly gap-4 overflow-x-auto p-3">
-        {videoIds.map(id => <VideoTile key={id} videoId={id} />)}
+      <div className="thin-scroll flex max-h-[500px] justify-evenly gap-4 overflow-x-auto p-3">
+        {videos.map(v => <VideoTile key={v.id} videoId={v.id} title={v.title} />)}
       </div>
       <h2>Projects</h2>
       <motion.a
@@ -38,7 +38,7 @@ function Portfolio() {
         Games on itch.io
         <span className="material-symbols-outlined">arrow_right_alt</span>
       </motion.a>
-      <div className="flex max-h-[500px] justify-evenly gap-4 overflow-x-auto p-3">
+      <div className="thin-scroll flex max-h-[500px] justify-evenly gap-4 overflow-x-auto p-3">
         <ProjectTile
           href="https://slimer37.itch.io/gtmk-jam-2021"
           bg={emBackground}

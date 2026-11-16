@@ -9,29 +9,31 @@ const GROW_PX = 6
 const slotClass =
   'relative isolate flex min-h-[300px] min-w-[25vw] grow flex-col p-5 font-mono text-xl text-white no-underline'
 
-const backdropClass = 'absolute -z-10 rounded-lg bg-secondary bg-cover bg-center shadow-md'
+const backdropClass = 'absolute -z-10 overflow-hidden rounded-lg bg-secondary bg-cover bg-center shadow-md'
 
 const backdropVariants = {
   rest: { top: 0, right: 0, bottom: 0, left: 0 },
   hover: { top: -GROW_PX, right: -GROW_PX, bottom: -GROW_PX, left: -GROW_PX },
 }
 
-const videoClass =
-  'relative flex min-h-[300px] min-w-[25vw] grow flex-col overflow-hidden rounded-lg ' +
-  'bg-secondary p-5 shadow-md'
-
 const spring = { type: 'spring', stiffness: 300, damping: 20 } as const
 
 type TileProps = {
   bg?: string
   className?: string
+  scrim?: boolean // darkens the bottom of the backdrop so light text stays readable
   overlay?: ReactNode // drawn above the content, clipped to the (growing) tile bounds
   children: ReactNode
-} & ({ href: string; to?: never } | { to: string; href?: never })
+} & (
+  | { href: string; to?: never; openUrl?: never }
+  | { to: string; href?: never; openUrl?: never }
+  // Behaves like a link but isn't an <a>, so middle-click autoscroll still works over the tile
+  | { openUrl: string; href?: never; to?: never }
+)
 
 // Content stays in normal flow, so the tile is sized by it. Only the backdrop grows
 // outward by a fixed number of pixels, so the background re-fits (cover) without stretching.
-export function ProjectTile({ bg, className = '', overlay, children, href, to }: TileProps) {
+export function ProjectTile({ bg, className = '', scrim, overlay, children, href, to, openUrl }: TileProps) {
   const content = (
     <>
       <motion.div
@@ -39,7 +41,9 @@ export function ProjectTile({ bg, className = '', overlay, children, href, to }:
         style={bg ? { backgroundImage: `url(${bg})` } : undefined}
         variants={backdropVariants}
         transition={spring}
-      />
+      >
+        {scrim && <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />}
+      </motion.div>
       {children}
       {overlay && (
         <motion.div
@@ -59,22 +63,49 @@ export function ProjectTile({ bg, className = '', overlay, children, href, to }:
     whileHover: 'hover',
   }
 
+  if (openUrl) {
+    const open = () => window.open(openUrl, '_blank', 'noopener,noreferrer')
+    return (
+      <motion.div
+        role="link"
+        tabIndex={0}
+        {...props}
+        className={`${props.className} cursor-pointer`}
+        onClick={open}
+        onKeyDown={e => { if (e.key === 'Enter') open() }}
+      >
+        {content}
+      </motion.div>
+    )
+  }
+
   return to
     ? <MotionLink to={to} {...props}>{content}</MotionLink>
     : <motion.a href={href} {...props}>{content}</motion.a>
 }
 
-export function VideoTile({ videoId }: { videoId: string }) {
+function PlayBadge() {
   return (
-    <span className={videoClass}>
-      <iframe
-        className="h-full w-full"
-        src={'https://www.youtube.com/embed/' + videoId}
-        title="YouTube video player"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerPolicy="strict-origin-when-cross-origin"
-        allowFullScreen
-      />
-    </span>
+    <svg viewBox="0 0 24 24" aria-hidden="true"
+      className="absolute right-3 top-3 h-9 w-9 fill-white drop-shadow-[0_2px_4px_rgb(0_0_0/0.6)]">
+      <path d="M6 3.5v17l14-8.5z" />
+    </svg>
+  )
+}
+
+// A thumbnail tile that opens the video on YouTube
+export function VideoTile({ videoId, title }: { videoId: string, title: string }) {
+  return (
+    <ProjectTile
+      openUrl={'https://www.youtube.com/watch?v=' + videoId}
+      scrim
+      bg={`https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`}
+    >
+      <PlayBadge />
+      <span className="mt-auto text-center [text-shadow:0_1px_6px_rgb(0_0_0/0.8)]">
+        {title}
+        <span className="sr-only"> (opens on YouTube)</span>
+      </span>
+    </ProjectTile>
   )
 }
