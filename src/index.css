@@ -31,6 +31,19 @@
   --accent: #128f2d;
 }
 
+:root {
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary) transparent;
+}
+
+.thin-scroll {
+  scrollbar-width: thin;
+}
+
+.thin-scroll:hover {
+  scrollbar-color: color-mix(in srgb, var(--secondary) 70%, black) transparent;
+}
+
 p code {
   padding: 0;
   border: none;
