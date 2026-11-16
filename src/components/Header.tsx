@@ -12,14 +12,16 @@ type HeaderProps = {
 }
 
 function Header({ shrinks = false }: HeaderProps) {
-  if (shrinks) {
-    window.addEventListener('scroll', shrinkWhenScrolled);
-  } else {
-    useEffect(() => {
-      document.getElementById('header')?.setAttribute('style', 'position: absolute')
-    })
-    window.removeEventListener('scroll', shrinkWhenScrolled);
-  }
+  useEffect(() => {
+    const header = document.getElementById('header')
+    if (!shrinks) {
+      header?.setAttribute('style', 'position: absolute')
+      return
+    }
+    window.addEventListener('scroll', shrinkWhenScrolled)
+    shrinkWhenScrolled()
+    return () => window.removeEventListener('scroll', shrinkWhenScrolled)
+  }, [shrinks])
 
   return (
     <header id="header">
