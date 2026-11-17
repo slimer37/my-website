@@ -31,8 +31,36 @@
 }
 
 .art-tile:hover {
-    transform: scale(1.03);
+    transform: perspective(700px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(1.03);
     box-shadow: 2px 2px 2px #00000020;
+    /* Short transition so the tilt follows the cursor; the base rule eases it back on leave */
+    transition: transform 0.08s linear, box-shadow 0.2s;
+}
+
+/* Soft highlight that follows the cursor */
+.art-tile::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.125), transparent 60%);
+    transition: opacity 0.2s;
+}
+
+.art-tile:hover::after {
+    opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .art-tile:hover {
+        transform: scale(1.03);
+    }
+
+    .art-tile::after {
+        display: none;
+    }
 }
 
 .art-tile video {

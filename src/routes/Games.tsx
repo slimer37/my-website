@@ -22,7 +22,8 @@ const excludedUrls = [
   "https://slimer37.itch.io/gtmk-jam-2021",
   "https://slimer37.itch.io/early-store-game",
 ]
-const moreGames = itchGames.filter(g => !excludedUrls.includes(g.url))
+type ItchGame = { id: string, url: string, title: string, thumb: string, blurb?: string }
+const moreGames: ItchGame[] = itchGames.filter(g => !excludedUrls.includes(g.url))
 
 function Tags({ tags }: { tags: string[] }) {
   return (
@@ -112,6 +113,12 @@ function Games() {
         </div>
       </Section>
 
+      <Section title="Prototypes" subtitle="Short videos of mechanics and animation tests">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,260px),1fr))] gap-5">
+          {prototypes.map(v => <VideoTile key={v.id} videoId={v.id} title={v.title} />)}
+        </div>
+      </Section>
+
       <Section
         title="More on itch.io"
         subtitle="Everything else from my itch.io profile"
@@ -130,24 +137,20 @@ function Games() {
         </motion.a>
         }
       >
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,240px),1fr))] gap-5">
+        <ul className="m-0 grid list-none grid-cols-1 gap-3 p-0 md:grid-cols-2">
           {moreGames.map(g => (
-            <a key={g.id} href={g.url} target="_blank" rel="noopener noreferrer"
-              className="flex flex-col overflow-hidden rounded-xl border border-black/10 bg-white/70 text-inherit no-underline shadow-sm backdrop-blur-sm transition-transform hover:-translate-y-0.5">
-              <img src={g.thumb} alt="" loading="lazy" className="aspect-[315/250] w-full object-cover" />
-              <div className="flex flex-col gap-2 p-4">
-                <h3 className="m-0 text-lg font-bold">{g.title}</h3>
-                <Tags tags={[...(g.genre ? [g.genre] : []), ...(g.browser ? ['Play in browser'] : [])]} />
-              </div>
-            </a>
+            <li key={g.id}>
+              <a href={g.url} target="_blank" rel="noopener noreferrer"
+                className="flex items-center gap-4 overflow-hidden rounded-xl border border-black/10 bg-white/70 text-inherit no-underline shadow-sm backdrop-blur-sm transition-[transform,box-shadow] hover:-translate-y-0.5 hover:shadow-lg">
+                <img src={g.thumb} alt="" loading="lazy" className="block h-24 w-auto shrink-0 aspect-[315/250] object-cover" />
+                <div className="min-w-0 py-2 pr-4">
+                  <h3 className="m-0 text-lg font-bold">{g.title}</h3>
+                  {g.blurb && <p className="m-0 mt-0.5 text-sm text-black/55">{g.blurb}</p>}
+                </div>
+              </a>
+            </li>
           ))}
-        </div>
-      </Section>
-
-      <Section title="Prototypes" subtitle="Short videos of mechanics and animation tests">
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,260px),1fr))] gap-5">
-          {prototypes.map(v => <VideoTile key={v.id} videoId={v.id} title={v.title} />)}
-        </div>
+        </ul>
       </Section>
     </div>
   )

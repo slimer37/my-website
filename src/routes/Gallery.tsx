@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
-import type { MouseEvent, ReactNode } from 'react'
+import type { MouseEvent, PointerEvent, ReactNode } from 'react'
 import { Lightbox } from '../components/Lightbox'
 import type { LightboxItem } from '../components/Lightbox'
 import './gallery.css'
@@ -18,6 +18,29 @@ function useOpenHandler(item: LightboxItem) {
   }
 }
 
+const MAX_TILT_DEG = 10
+
+// Tilts the tile toward the cursor. Only reacts to mouse/pen, so touch scrolling is unaffected;
+// the CSS also skips the effect for prefers-reduced-motion.
+const tiltHandlers = {
+  onPointerMove(e: PointerEvent<HTMLElement>) {
+    if (e.pointerType === 'touch') return
+    const el = e.currentTarget
+    const r = el.getBoundingClientRect()
+    const x = (e.clientX - r.left) / r.width
+    const y = (e.clientY - r.top) / r.height
+    el.style.setProperty('--ry', `${(x - 0.5) * 2 * MAX_TILT_DEG}deg`)
+    el.style.setProperty('--rx', `${-(y - 0.5) * 2 * MAX_TILT_DEG}deg`)
+    el.style.setProperty('--mx', `${x * 100}%`)
+    el.style.setProperty('--my', `${y * 100}%`)
+  },
+  onPointerLeave(e: PointerEvent<HTMLElement>) {
+    const el = e.currentTarget
+    el.style.removeProperty('--rx')
+    el.style.removeProperty('--ry')
+  },
+}
+
 type TileProps = {
   file: string,
   inner: ReactNode
@@ -27,7 +50,7 @@ function ArtTile({ file, inner }: TileProps) {
   const url = "gallery/" + file
   const onClick = useOpenHandler({ url, kind: 'image' })
 
-  return <a href={url} onClick={onClick} className="art-tile" style={{ backgroundImage: `url(${url})` }}>
+  return <a href={url} onClick={onClick} className="art-tile" style={{ backgroundImage: `url(${url})` }} {...tiltHandlers}>
     {inner}
   </a>
 }
@@ -56,7 +79,7 @@ function VideoTile({ file, inner, autoplay = true, warning }: VideoTileProps) {
   }, [autoplay])
 
   // The #t fragment makes the browser show a frame instead of a blank tile when not playing
-  return <a href={url} onClick={onClick} className="art-tile">
+  return <a href={url} onClick={onClick} className="art-tile" {...tiltHandlers}>
     <video ref={videoRef} src={autoplay ? url : url + '#t=0.1'} loop muted playsInline preload="metadata" />
     {warning && (
       <div className="tile-warning">
