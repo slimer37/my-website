@@ -9,7 +9,7 @@ export const siteInfo = {
   author: "Alfred Roy M",
 
   contacts: [
-    { label: "Primary", email: "alfredroymanongsong@gmail.com" },
+    { label: "Primary", email: "alfredroym04@gmail.com" },
     { label: "Games/Support", email: "slimer37dev@gmail.com" },
   ] satisfies Contact[],
 
