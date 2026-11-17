@@ -154,3 +154,51 @@
     opacity: 60%;
     z-index: -50;
 }
+
+.home-spacer {
+    height: 300px;
+}
+
+/* Phones: the tools list stacks above its details, and the logos wrap instead of scrolling */
+@media (max-width: 639px) {
+    :root {
+        --tool-logo-size: 64px;
+    }
+
+    .front-page {
+        margin-top: 24px;
+    }
+
+    .hero-name {
+        font-size: 2.6rem;
+    }
+
+    .hero-widget {
+        margin-top: 8px;
+    }
+
+    .tool-section {
+        flex-direction: column;
+        height: auto;
+        gap: 8px;
+    }
+
+    .tool-list {
+        width: 100%;
+        height: auto;
+        overflow: visible;
+    }
+
+    .tool-logo {
+        margin: 10px 14px;
+    }
+
+    .tool-info {
+        width: 100%;
+        margin: 8px 0;
+    }
+
+    .home-spacer {
+        height: 120px;
+    }
+}

@@ -88,3 +88,77 @@
     color: var(--secondary-dark);
     pointer-events: none;
 }
+
+.menu-toggle,
+.header-current {
+    display: none;
+}
+
+/* Phones: links collapse behind a hamburger button */
+@media (max-width: 639px) {
+    .header-group {
+        justify-content: space-between;
+        padding: 0 8px 0 18px;
+    }
+
+    .header-current {
+        display: block;
+        font-family: 'Gloock', serif;
+        font-size: 1.3em;
+    }
+
+    .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--text);
+        cursor: pointer;
+    }
+
+    .menu-toggle .material-symbols-outlined {
+        font-size: 30px;
+    }
+
+    .nav-btn-group {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        gap: 0;
+        background-color: var(--bg);
+        border-bottom: dashed gray 1px;
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-btn-group.open {
+        display: flex;
+    }
+
+    .nav-btn {
+        padding: 14px 18px;
+        font-size: 1.1rem;
+    }
+
+    .nav-btn::after {
+        left: 18px;
+        right: auto;
+        width: 36px;
+        bottom: 8px;
+    }
+
+    .nav-btn:hover {
+        transform: none;
+    }
+
+    .nav-btn.active {
+        pointer-events: auto;
+        background: color-mix(in srgb, var(--sec-bg) 45%, transparent);
+    }
+}

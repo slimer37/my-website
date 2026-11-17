@@ -109,10 +109,10 @@ function Home() {
         </div>
       </div>
 
-      <div style={{ height: '300px' }} />
+      <div className="home-spacer" />
 
       {/* Sized to the first screen, so the streaks position against it and not the whole page */}
-      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100vh', pointerEvents: 'none' }}>
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100vh', pointerEvents: 'none', overflowX: 'clip' }}>
         <img src={paintStreak} className="paint-streak" style={{ bottom: -240, right: -150 }} />
         <img src={paintStreak2} className="paint-streak" style={{ top: 0, left: -100 }} />
       </div>

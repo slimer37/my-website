@@ -56,3 +56,16 @@ address.footer-item {
 td {
     padding: 1px 20px 1px 0px;
 }
+
+/* Phones: stack the contact labels above their addresses so long emails don't wrap mid-word */
+@media (max-width: 639px) {
+    .contact-list {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .contact-list dt {
+        margin-top: 8px;
+        opacity: 0.7;
+    }
+}

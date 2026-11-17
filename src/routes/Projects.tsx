@@ -81,7 +81,7 @@ function Projects() {
   document.title = "Projects"
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-3 py-2">
+    <div className="mx-auto box-border w-full max-w-6xl px-3 py-2">
       <div className="mb-10">
         <h1 className="!mb-2 font-display text-5xl">Projects</h1>
         <p className="m-0 max-w-2xl text-lg leading-relaxed text-black/70">
