@@ -7,7 +7,9 @@ const MotionLink = motion.create(Link)
 const GROW_PX = 6
 
 const slotClass =
-  'relative isolate flex min-h-[300px] min-w-[25vw] grow flex-col p-5 font-mono text-xl text-white no-underline'
+  'relative isolate box-border flex flex-col p-5 font-mono text-xl text-white no-underline'
+const standaloneSize = 'min-h-[300px] min-w-[25vw] grow'
+const fillSize = 'h-56 w-full'
 
 const backdropClass = 'absolute -z-10 overflow-hidden rounded-lg bg-secondary bg-cover bg-center shadow-md'
 
@@ -21,6 +23,7 @@ const spring = { type: 'spring', stiffness: 300, damping: 20 } as const
 type TileProps = {
   bg?: string
   className?: string
+  fill?: boolean // fill the parent's width at a fixed height instead of the standalone min sizes
   scrim?: boolean // darkens the bottom of the backdrop so light text stays readable
   overlay?: ReactNode // drawn above the content, clipped to the (growing) tile bounds
   children: ReactNode
@@ -33,7 +36,7 @@ type TileProps = {
 
 // Content stays in normal flow, so the tile is sized by it. Only the backdrop grows
 // outward by a fixed number of pixels, so the background re-fits (cover) without stretching.
-export function ProjectTile({ bg, className = '', scrim, overlay, children, href, to, openUrl }: TileProps) {
+export function ProjectTile({ bg, className = '', fill, scrim, overlay, children, href, to, openUrl }: TileProps) {
   const content = (
     <>
       <motion.div
@@ -58,7 +61,7 @@ export function ProjectTile({ bg, className = '', scrim, overlay, children, href
   )
 
   const props = {
-    className: `${slotClass} ${className}`,
+    className: `${slotClass} ${fill ? fillSize : standaloneSize} ${className}`,
     initial: 'rest',
     whileHover: 'hover',
   }
@@ -98,6 +101,7 @@ export function VideoTile({ videoId, title }: { videoId: string, title: string }
   return (
     <ProjectTile
       openUrl={'https://www.youtube.com/watch?v=' + videoId}
+      fill
       scrim
       bg={`https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`}
     >

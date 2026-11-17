@@ -13,8 +13,8 @@ h2 {
 }
 
 .duppet {
-    width: 48px;
-    height: 96px;
+    width: 24px;
+    height: 48px;
 
     background: url("/src/assets/portfolio/assets/engineersprites.png");
     background-size: 400%;
@@ -46,11 +46,11 @@ h2 {
 @keyframes duppet-walk {
 
     0% {
-        right: calc(100% + 64px);
+        right: calc(100% + 32px);
     }
 
     100% {
-        right: -64px;
+        right: -32px;
     }
 
 }
