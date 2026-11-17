@@ -1,4 +1,21 @@
+import asepriteLogo from '../assets/logos/aseprite.svg'
+import twitchLogo from '../assets/logos/twitch.svg'
+import westernDigitalLogo from '../assets/logos/westerndigital.svg'
 import Section from '../components/Section'
+
+// A die-cut sticker outline: each drop-shadow runs on the previous result, so stacking small
+// white offsets in every direction grows a solid border that follows the logo's own shape.
+const STICKER_OUTLINE_PX = 2.5
+const stickerFilter = [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, -1], [1, -1], [-1, 1]]
+  .map(([x, y]) => `drop-shadow(${x * STICKER_OUTLINE_PX}px ${y * STICKER_OUTLINE_PX}px 0 white)`)
+  .join(' ') + ' drop-shadow(1px 2px 3px rgb(0 0 0 / 0.35))'
+
+type Sticker = {
+  logo: string
+  label: string
+  className: string // position on the card's edge
+  rotate: number // degrees; deliberately a little off-kilter
+}
 
 type Project = {
   title: string
@@ -6,6 +23,7 @@ type Project = {
   tags: string[]
   href?: string
   linkLabel?: string
+  sticker?: Sticker
 }
 
 const projects: Project[] = [
@@ -15,6 +33,7 @@ const projects: Project[] = [
     tags: ['Python', 'Qt', 'Flask', 'SAM'],
     href: "https://github.com/slimer37/CSE120-G310-WD-AIA",
     linkLabel: "View on GitHub",
+    sticker: { logo: westernDigitalLogo, label: "Western Digital", className: "right-1 bottom-10", rotate: -4 },
   },
   {
     title: "Video Share Site",
@@ -36,11 +55,20 @@ const projects: Project[] = [
     tags: ['Unity', 'C#', 'Multiplayer'],
   },
   {
+    title: "Git Extension for Aseprite",
+    blurb: "An Aseprite extension for viewing a sprite's git history. Pick a commit from the File menu and the sprite opens in a new tab as it was at that commit.",
+    tags: ['Lua', 'Aseprite', 'Git'],
+    href: "https://github.com/slimer37/aseprite-git-extension",
+    linkLabel: "View on GitHub",
+    sticker: { logo: asepriteLogo, label: "Aseprite", className: "-left-3 bottom-15", rotate: -11 },
+  },
+  {
     title: "FoxBotPy",
     blurb: "A simple, customizable Twitch bot with a desktop GUI.",
     tags: ['Python', 'Twitch', 'GUI'],
     href: "https://github.com/slimer37/FoxBotPy",
     linkLabel: "View on GitHub",
+    sticker: { logo: twitchLogo, label: "Twitch", className: "right-20 -top-1", rotate: -6 },
   },
   {
     title: "CoreInsite Rebrand",
@@ -64,7 +92,16 @@ function Projects() {
       <Section title="Software Projects">
         <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,300px),1fr))] gap-6">
           {projects.map(p => (
-            <article key={p.title} className="flex flex-col gap-3 rounded-xl border border-black/10 bg-white/70 p-5 shadow-sm backdrop-blur-sm">
+            <article key={p.title} className="relative flex flex-col gap-3 rounded-xl border border-black/10 bg-white/70 p-5 shadow-sm backdrop-blur-sm">
+              {p.sticker && (
+                <img
+                  src={p.sticker.logo}
+                  alt={p.sticker.label}
+                  title={p.sticker.label}
+                  className={`absolute ${p.sticker.className} h-10 w-10`}
+                  style={{ transform: `rotate(${p.sticker.rotate}deg)`, filter: stickerFilter }}
+                />
+              )}
               <h3 className="m-0 text-xl font-bold">{p.title}</h3>
               <p className="m-0 leading-relaxed text-black/75">{p.blurb}</p>
               <ul className="m-0 flex list-none flex-wrap gap-1.5 p-0">
