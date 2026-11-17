@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 
-export type LightboxItem = {
-  url: string
-  kind: 'image' | 'video'
-}
+export type LightboxItem =
+  | { url: string, kind: 'image' | 'video' }
+  | { url: string, kind: 'youtube', videoId: string } // url is the watch page, used as the identity
 
 type LightboxProps = {
   item: LightboxItem | null
@@ -97,7 +96,15 @@ function Media({ item }: { item: LightboxItem }) {
   return (
     <>
       {!ready && <Spinner />}
-      {item.kind === 'image'
+      {item.kind === 'youtube'
+        ? <iframe
+            src={`https://www.youtube-nocookie.com/embed/${item.videoId}?autoplay=1&rel=0`}
+            title="YouTube video player"
+            allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+            allowFullScreen
+            onLoad={done}
+            className={`${mediaClass} aspect-video w-[min(calc(100vw-3rem),calc(85vh*16/9))] border-0 bg-black`} />
+        : item.kind === 'image'
         ? <img ref={imageRef} src={item.url} alt="" onLoad={done} onError={done} className={`${mediaClass} bg-[#2f3640]`} />
         : <video ref={videoRef} src={item.url} controls autoPlay loop playsInline onLoadedData={done} onError={done}
             className={`${mediaClass} bg-black`} />}

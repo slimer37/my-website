@@ -28,15 +28,15 @@ type TileProps = {
   overlay?: ReactNode // drawn above the content, clipped to the (growing) tile bounds
   children: ReactNode
 } & (
-  | { href: string; to?: never; openUrl?: never }
-  | { to: string; href?: never; openUrl?: never }
+  | { href: string; to?: never; onOpen?: never }
+  | { to: string; href?: never; onOpen?: never }
   // Behaves like a link but isn't an <a>, so middle-click autoscroll still works over the tile
-  | { openUrl: string; href?: never; to?: never }
+  | { onOpen: () => void; href?: never; to?: never }
 )
 
 // Content stays in normal flow, so the tile is sized by it. Only the backdrop grows
 // outward by a fixed number of pixels, so the background re-fits (cover) without stretching.
-export function ProjectTile({ bg, className = '', fill, scrim, overlay, children, href, to, openUrl }: TileProps) {
+export function ProjectTile({ bg, className = '', fill, scrim, overlay, children, href, to, onOpen }: TileProps) {
   const content = (
     <>
       <motion.div
@@ -66,16 +66,15 @@ export function ProjectTile({ bg, className = '', fill, scrim, overlay, children
     whileHover: 'hover',
   }
 
-  if (openUrl) {
-    const open = () => window.open(openUrl, '_blank', 'noopener,noreferrer')
+  if (onOpen) {
     return (
       <motion.div
-        role="link"
+        role="button"
         tabIndex={0}
         {...props}
         className={`${props.className} cursor-pointer`}
-        onClick={open}
-        onKeyDown={e => { if (e.key === 'Enter') open() }}
+        onClick={onOpen}
+        onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen() } }}
       >
         {content}
       </motion.div>
@@ -96,11 +95,11 @@ function PlayBadge() {
   )
 }
 
-// A thumbnail tile that opens the video on YouTube
-export function VideoTile({ videoId, title }: { videoId: string, title: string }) {
+// A thumbnail tile that opens the video in the lightbox
+export function VideoTile({ videoId, title, onOpen }: { videoId: string, title: string, onOpen: () => void }) {
   return (
     <ProjectTile
-      openUrl={'https://www.youtube.com/watch?v=' + videoId}
+      onOpen={onOpen}
       fill
       scrim
       bg={`https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`}
@@ -108,7 +107,6 @@ export function VideoTile({ videoId, title }: { videoId: string, title: string }
       <PlayBadge />
       <span className="mt-auto text-center [text-shadow:0_1px_6px_rgb(0_0_0/0.8)]">
         {title}
-        <span className="sr-only"> (opens on YouTube)</span>
       </span>
     </ProjectTile>
   )

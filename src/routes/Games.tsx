@@ -1,4 +1,5 @@
 import { motion } from 'motion/react'
+import { useCallback, useState } from 'react'
 import type { ReactNode } from 'react'
 
 import ccLogo from '../assets/portfolio/thumbs/cclogo.png'
@@ -6,6 +7,7 @@ import ccThumb from '../assets/portfolio/thumbs/ccthumb.png'
 import emBackground from '../assets/portfolio/thumbs/embackground.png'
 import titleTile from '../assets/portfolio/thumbs/titletile.png'
 import itchGames from '../data/itchGames.json'
+import { Lightbox } from '../components/Lightbox'
 import { ProjectTile, VideoTile } from '../components/ProjectTile'
 import Section from '../components/Section'
 
@@ -66,6 +68,9 @@ function GameCard({ title, blurb, tags, href, linkLabel, tile }: CardProps) {
 function Games() {
   document.title = "Games"
 
+  const [openVideo, setOpenVideo] = useState<string | null>(null)
+  const closeVideo = useCallback(() => setOpenVideo(null), [])
+
   return (
     <div className="mx-auto w-full max-w-6xl px-3 py-2">
       <div className="mb-10">
@@ -115,7 +120,7 @@ function Games() {
 
       <Section title="Prototypes" subtitle="Short videos of mechanics and animation tests">
         <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,260px),1fr))] gap-5">
-          {prototypes.map(v => <VideoTile key={v.id} videoId={v.id} title={v.title} />)}
+          {prototypes.map(v => <VideoTile key={v.id} videoId={v.id} title={v.title} onOpen={() => setOpenVideo(v.id)} />)}
         </div>
       </Section>
 
@@ -152,6 +157,11 @@ function Games() {
           ))}
         </ul>
       </Section>
+
+      <Lightbox
+        item={openVideo ? { kind: 'youtube', videoId: openVideo, url: 'https://www.youtube.com/watch?v=' + openVideo } : null}
+        onClose={closeVideo}
+      />
     </div>
   )
 }
