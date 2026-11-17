@@ -1,37 +1,34 @@
 import './Footer.css'
 
 import face from "../assets/images/easter-face.png"
-
-function EmailLink(address: string) {
-  return <a className="footer-link" href={"mailto:" + address}>{address}</a>
-}
+import { siteInfo } from '../data/siteInfo'
 
 function Footer() {
+  const { author, contacts, hosting } = siteInfo
+
   return (
     <footer id="footer">
       <div className="footer-column">
         <div className="footer-item">
-          <span>Site by Alfred Roy M</span>
-          <img src={face} style={{ maxHeight: '30pt', marginBottom: '-15px' }} />
+          <span>Site by {author}</span>
+          <img src={face} className="footer-face" />
         </div>
-        <div className="footer-item">
+        <address className="footer-item">
           <b>Contact</b>
-          <table style={{ borderCollapse: 'collapse' }}>
-            <tr>
-              <td>Primary:</td>
-              <td>{EmailLink("alfredroymanongsong@gmail.com")}</td>
-            </tr>
-            <tr>
-              <td>Games/Support:</td>
-              <td>{EmailLink("slimer37dev@gmail.com")}</td>
-            </tr>
-          </table>
-        </div>
+          <dl className="contact-list">
+            {contacts.map(({ label, email }) => (
+              <div key={email} className="contact-row">
+                <dt>{label}:</dt>
+                <dd><a className="footer-link" href={"mailto:" + email}>{email}</a></dd>
+              </div>
+            ))}
+          </dl>
+        </address>
       </div>
       <div className="footer-column">
         <p className="footer-item">
           Hosted with&nbsp;
-          <a className="footer-link" href="https://github.com/slimer37/slimer37.github.io">GitHub&nbsp;Pages</a>
+          <a className="footer-link" href={hosting.repoUrl}>{hosting.provider}</a>
         </p>
       </div>
     </footer>
