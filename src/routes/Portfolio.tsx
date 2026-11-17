@@ -34,7 +34,7 @@ function Tags({ tags }: { tags: string[] }) {
   return (
     <ul className="m-0 flex list-none flex-wrap gap-1.5 p-0">
       {tags.map(t => (
-        <li key={t} className="rounded-full bg-sec-bg px-2.5 py-0.5 font-mono text-xs font-semibold text-secondary">
+        <li key={t} className="rounded-full bg-sec-bg px-2.5 py-0.5 font-mono text-xs font-semibold text-secondary-dark">
           {t}
         </li>
       ))}
@@ -85,7 +85,7 @@ function Portfolio() {
           target="_blank"
           rel="noopener noreferrer"
           className="mt-5 inline-flex items-center gap-1.5 rounded-md bg-secondary px-5 py-2.5 font-mono
-                     text-base font-bold !text-white no-underline shadow-sm hover:bg-accent"
+                     text-base font-bold !text-white no-underline shadow-sm transition-colors hover:bg-secondary-dark"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
         >

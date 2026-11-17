@@ -12,23 +12,26 @@
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
 
-@theme {
-  --color-bg: #e6e6e6;
-  --color-sec-bg: #a4eba4;
-  --color-secondary: #2D7863;
-  --color-primary: #2DAA27;
-  --color-accent: #128f2d;
-  --font-display: "Gloock", serif;
-  --font-mono: "JetBrains Mono", monospace;
-}
-
+/* Palette lives in :root; Tailwind's color utilities just point at these variables. */
 :root {
   --bg: #e6e6e6;
   --sec-bg: #a4eba4;
-  --secondary: #2D7863;
+  --secondary: #1f7a4d;      /* forest green: buttons, scrollbars, tile backdrops */
+  --secondary-dark: #165c3a; /* hover/pressed states, and text on --sec-bg */
   --primary: #2DAA27;
   --text: #141414;
   --accent: #128f2d;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-sec-bg: var(--sec-bg);
+  --color-secondary: var(--secondary);
+  --color-secondary-dark: var(--secondary-dark);
+  --color-primary: var(--primary);
+  --color-accent: var(--accent);
+  --font-display: "Gloock", serif;
+  --font-mono: "JetBrains Mono", monospace;
 }
 
 :root {
@@ -41,7 +44,7 @@
 }
 
 .thin-scroll:hover {
-  scrollbar-color: color-mix(in srgb, var(--secondary) 70%, black) transparent;
+  scrollbar-color: var(--secondary-dark) transparent;
 }
 
 p code {
