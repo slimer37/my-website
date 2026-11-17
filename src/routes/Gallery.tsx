@@ -43,12 +43,16 @@ function VideoTile({ file, inner, controls = false }: VideoTileProps) {
 }
 
 function Gallery() {
-  document.title = "Gallery"
+  document.title = "Art"
 
   return (
-    <>
-      <h1 style={{ textAlign: 'center' }}>3D Art Gallery</h1>
-      <h3 style={{ textAlign: 'center' }}>Click on any square to view the original image.</h3>
+    <div className="mx-auto w-full max-w-6xl px-3 py-2">
+      <div className="mb-10">
+        <h1 className="!mb-2 font-display text-5xl">Art</h1>
+        <p className="m-0 max-w-2xl text-lg leading-relaxed text-black/70">
+          3D models, renders and animations. Click any tile to view the original.
+        </p>
+      </div>
       <div className="gallery-grid">
         <VideoTile file="mobboss.mp4" inner={<>Pokemon Mafia</>} />
         <ArtTile file="boxcutter.jpg" inner={<><q>Boxcutter</q>&nbsp;Boss</>} />
@@ -69,7 +73,7 @@ function Gallery() {
         <VideoTile file="ship.mp4" inner={<>Ship</>} />
         <ArtTile file="lemon.png" inner={<q>Combustible Lemon</q>} />
       </div>
-    </>
+    </div>
   )
 }
 
