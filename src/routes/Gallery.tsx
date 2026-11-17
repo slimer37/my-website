@@ -1,6 +1,22 @@
-import { useEffect, useRef } from 'react'
-import type { ReactNode } from 'react'
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
+import type { MouseEvent, ReactNode } from 'react'
+import { Lightbox } from '../components/Lightbox'
+import type { LightboxItem } from '../components/Lightbox'
 import './gallery.css'
+
+const OpenItemContext = createContext<(item: LightboxItem) => void>(() => { })
+
+// Tiles stay real links, so middle-click and "open in new tab" still go straight to the file.
+// A plain left click opens the lightbox instead.
+function useOpenHandler(item: LightboxItem) {
+  const open = useContext(OpenItemContext)
+
+  return (e: MouseEvent) => {
+    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
+    e.preventDefault()
+    open(item)
+  }
+}
 
 type TileProps = {
   file: string,
@@ -9,8 +25,9 @@ type TileProps = {
 
 function ArtTile({ file, inner }: TileProps) {
   const url = "gallery/" + file
+  const onClick = useOpenHandler({ url, kind: 'image' })
 
-  return <a href={url} className="art-tile" style={{ backgroundImage: `url(${url})` }}>
+  return <a href={url} onClick={onClick} className="art-tile" style={{ backgroundImage: `url(${url})` }}>
     {inner}
   </a>
 }
@@ -23,6 +40,7 @@ type VideoTileProps = TileProps & {
 function VideoTile({ file, inner, controls = false }: VideoTileProps) {
   const url = "gallery/" + file
   const videoRef = useRef<HTMLVideoElement>(null)
+  const onClick = useOpenHandler({ url, kind: 'video' })
 
   useEffect(() => {
     const video = videoRef.current
@@ -36,7 +54,7 @@ function VideoTile({ file, inner, controls = false }: VideoTileProps) {
     return () => observer.disconnect()
   }, [controls])
 
-  return <a href={url} className="art-tile">
+  return <a href={url} onClick={onClick} className="art-tile">
     <video ref={videoRef} src={url} controls={controls} loop muted playsInline preload="metadata" />
     <div className="over-video">{inner}</div>
   </a>
@@ -45,7 +63,11 @@ function VideoTile({ file, inner, controls = false }: VideoTileProps) {
 function Gallery() {
   document.title = "Art"
 
+  const [openItem, setOpenItem] = useState<LightboxItem | null>(null)
+  const closeItem = useCallback(() => setOpenItem(null), [])
+
   return (
+    <OpenItemContext.Provider value={setOpenItem}>
     <div className="mx-auto w-full max-w-6xl px-3 py-2">
       <div className="mb-10">
         <h1 className="!mb-2 font-display text-5xl">Art</h1>
@@ -73,7 +95,9 @@ function Gallery() {
         <VideoTile file="ship.mp4" inner={<>Ship</>} />
         <ArtTile file="lemon.png" inner={<q>Combustible Lemon</q>} />
       </div>
+      <Lightbox item={openItem} onClose={closeItem} />
     </div>
+    </OpenItemContext.Provider>
   )
 }
 
