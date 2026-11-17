@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { motion } from 'motion/react'
 import type { ReactNode } from 'react'
 
@@ -6,18 +5,10 @@ import ccLogo from '../assets/portfolio/thumbs/cclogo.png'
 import ccThumb from '../assets/portfolio/thumbs/ccthumb.png'
 import emBackground from '../assets/portfolio/thumbs/embackground.png'
 import titleTile from '../assets/portfolio/thumbs/titletile.png'
-import mobBoss from '../assets/portfolio/gallery/mobboss.png'
-import { ProjectTile, VideoTile } from '../components/ProjectTile'
+import { ProjectTile } from '../components/ProjectTile'
 import Section from '../components/Section'
 
 import './portfolio.css'
-
-const videos = [
-  { id: "XOmTZZrjrbM", title: "3D Spider Animation Test" },
-  { id: "4XTsVQlmsRc", title: "2D Platformer Swinging" },
-  { id: "E6ze2qa9GYc", title: "2D Top-Down Hyphae Controlled Mushroom" },
-  { id: "41PoCimG538", title: "3D Swinging Mushroom" },
-]
 
 function Tags({ tags }: { tags: string[] }) {
   return (
@@ -35,14 +26,12 @@ type CardProps = {
   title: string
   blurb: string
   tags: string[]
+  href: string
   linkLabel: string
   tile: ReactNode
 }
 
-function ProjectCard({ title, blurb, tags, linkLabel, tile, href, to }: CardProps & ({ href: string, to?: never } | { to: string, href?: never })) {
-  const label = <>{linkLabel}<span className="material-symbols-outlined">arrow_right_alt</span></>
-  const linkClass = 'mt-auto inline-flex items-center gap-1 font-mono text-sm font-bold no-underline hover:underline'
-
+function GameCard({ title, blurb, tags, href, linkLabel, tile }: CardProps) {
   return (
     <article className="flex flex-col overflow-hidden rounded-xl border border-black/10 bg-white/70 shadow-sm backdrop-blur-sm">
       <div className="p-2 pb-0">{tile}</div>
@@ -50,24 +39,24 @@ function ProjectCard({ title, blurb, tags, linkLabel, tile, href, to }: CardProp
         <h3 className="m-0 text-xl font-bold">{title}</h3>
         <p className="m-0 leading-relaxed text-black/75">{blurb}</p>
         <Tags tags={tags} />
-        {to
-          ? <Link to={to} className={linkClass}>{label}</Link>
-          : <a href={href} target="_blank" rel="noopener noreferrer" className={linkClass}>{label}</a>}
+        <a href={href} target="_blank" rel="noopener noreferrer"
+          className="mt-auto inline-flex items-center gap-1 font-mono text-sm font-bold no-underline hover:underline">
+          {linkLabel}<span className="material-symbols-outlined">arrow_right_alt</span>
+        </a>
       </div>
     </article>
   )
 }
 
-function Portfolio() {
-  document.title = "Portfolio"
+function Games() {
+  document.title = "Games"
 
   return (
     <div className="mx-auto w-full max-w-6xl px-3 py-2">
       <div className="mb-10">
-        <h1 className="!mb-2 font-display text-5xl">Portfolio</h1>
+        <h1 className="!mb-2 font-display text-5xl">Games</h1>
         <p className="m-0 max-w-2xl text-lg leading-relaxed text-black/70">
-          A selection of games, tools and experiments I've built, mostly in Unity.
-          Full releases and jam entries are on itch.io.
+          Jam entries and releases, mostly built in Unity. Everything playable is on itch.io.
         </p>
         <motion.a
           href="https://slimer37.itch.io"
@@ -83,9 +72,9 @@ function Portfolio() {
         </motion.a>
       </div>
 
-      <Section title="Featured Projects" subtitle="Games and playable work">
+      <Section title="Featured Games">
         <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,300px),1fr))] gap-6">
-          <ProjectCard
+          <GameCard
             href="https://slimer37.itch.io/gtmk-jam-2021"
             title="GMTK Game Jam 2021 Entry"
             blurb="A game jam entry built from scratch in a weekend, with hand-drawn pixel art and animated characters."
@@ -106,15 +95,7 @@ function Portfolio() {
               </ProjectTile>
             }
           />
-          <ProjectCard
-            to="/gallery"
-            title="3D Gallery"
-            blurb="A collection of 3D models, renders and animations, viewable right in the browser."
-            tags={['Blender', '3D Art', 'Animation']}
-            linkLabel="Open gallery"
-            tile={<ProjectTile fill to="/gallery" bg={mobBoss}>{null}</ProjectTile>}
-          />
-          <ProjectCard
+          <GameCard
             href="https://slimer37.itch.io/early-store-game"
             title="Counter Chaos (Legacy)"
             blurb="An early version of a store-management game, kept online as a record of where the project started."
@@ -128,14 +109,8 @@ function Portfolio() {
           />
         </div>
       </Section>
-
-      <Section title="Prototypes" subtitle="Short videos of mechanics and animation tests">
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,260px),1fr))] gap-5">
-          {videos.map(v => <VideoTile key={v.id} videoId={v.id} title={v.title} />)}
-        </div>
-      </Section>
     </div>
   )
 }
 
-export default Portfolio
+export default Games
