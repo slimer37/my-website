@@ -33,7 +33,7 @@ const projects: Project[] = [
     tags: ['Python', 'Qt', 'Flask', 'SAM'],
     href: "https://github.com/slimer37/CSE120-G310-WD-AIA",
     linkLabel: "View on GitHub",
-    sticker: { logo: westernDigitalLogo, label: "Western Digital", className: "right-1 bottom-10", rotate: -4 },
+    sticker: { logo: westernDigitalLogo, label: "Western Digital", className: "right-1 -bottom-5", rotate: -4 },
   },
   {
     title: "Video Share Site",
@@ -60,7 +60,7 @@ const projects: Project[] = [
     tags: ['Lua', 'Aseprite', 'Git'],
     href: "https://github.com/slimer37/aseprite-git-extension",
     linkLabel: "View on GitHub",
-    sticker: { logo: asepriteLogo, label: "Aseprite", className: "-left-3 bottom-15", rotate: -11 },
+    sticker: { logo: asepriteLogo, label: "Aseprite", className: "right-5 bottom-12", rotate: -6 },
   },
   {
     title: "FoxBotPy",
@@ -68,7 +68,7 @@ const projects: Project[] = [
     tags: ['Python', 'Twitch', 'GUI'],
     href: "https://github.com/slimer37/FoxBotPy",
     linkLabel: "View on GitHub",
-    sticker: { logo: twitchLogo, label: "Twitch", className: "right-20 -top-1", rotate: -6 },
+    sticker: { logo: twitchLogo, label: "Twitch", className: "right-10 -top-1", rotate: -6 },
   },
   {
     title: "CoreInsite Rebrand",
