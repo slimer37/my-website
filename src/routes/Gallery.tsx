@@ -33,18 +33,19 @@ function ArtTile({ file, inner }: TileProps) {
 }
 
 type VideoTileProps = TileProps & {
-  controls?: boolean
+  autoplay?: boolean // play silently in the tile while on screen (default); off shows a still frame
+  warning?: string // dims the tile behind a content warning
 }
 
 // Autoplaying videos only play while on screen, so the page isn't decoding all of them at once.
-function VideoTile({ file, inner, controls = false }: VideoTileProps) {
+function VideoTile({ file, inner, autoplay = true, warning }: VideoTileProps) {
   const url = "gallery/" + file
   const videoRef = useRef<HTMLVideoElement>(null)
   const onClick = useOpenHandler({ url, kind: 'video' })
 
   useEffect(() => {
     const video = videoRef.current
-    if (!video || controls) return
+    if (!video || !autoplay) return
 
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) video.play().catch(() => { })
@@ -52,10 +53,17 @@ function VideoTile({ file, inner, controls = false }: VideoTileProps) {
     })
     observer.observe(video)
     return () => observer.disconnect()
-  }, [controls])
+  }, [autoplay])
 
+  // The #t fragment makes the browser show a frame instead of a blank tile when not playing
   return <a href={url} onClick={onClick} className="art-tile">
-    <video ref={videoRef} src={url} controls={controls} loop muted playsInline preload="metadata" />
+    <video ref={videoRef} src={autoplay ? url : url + '#t=0.1'} loop muted playsInline preload="metadata" />
+    {warning && (
+      <div className="tile-warning">
+        <span className="material-symbols-outlined">warning</span>
+        {warning}
+      </div>
+    )}
     <div className="over-video">{inner}</div>
   </a>
 }
@@ -89,7 +97,7 @@ function Gallery() {
         <ArtTile file="opensign.png" inner={<>Open Sign</>} />
         <VideoTile file="motiontrack.mp4" inner={<>VFX Test</>} />
         <VideoTile file="factorio.mp4" inner={<>Factorio Inserters</>} />
-        <VideoTile file="firelegwalk.mp4" inner={<>Fireleg (Click to play)</>} controls />
+        <VideoTile file="firelegwalk.mp4" inner={<>Fireleg</>} autoplay={false} warning="Arachnophobia Warning" />
         <ArtTile file="buildingnight.png" inner={<>City Corner Building</>} />
         <ArtTile file="funky.jpg" inner={<q>Funky Abstract</q>} />
         <VideoTile file="ship.mp4" inner={<>Ship</>} />

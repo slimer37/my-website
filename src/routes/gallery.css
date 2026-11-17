@@ -43,6 +43,29 @@
     object-fit: cover;
 }
 
+/* Sits above the video but below the caption */
+.tile-warning {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    background: rgba(0, 0, 0, 0.5);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.tile-warning .material-symbols-outlined {
+    font-size: 40px;
+}
+
 .over-video {
     z-index: 1;
     position: relative;
