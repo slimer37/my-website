@@ -80,6 +80,7 @@ body {
 }
 
 #root {
+  position: relative; /* anchors the page-bottom waves */
   font-family: 'Inter', sans-serif;
   font-weight: normal;
 
