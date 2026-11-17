@@ -8,6 +8,9 @@ import Resume from '../components/Resume';
 
 import paintStreak from '../assets/images/paint-streak.png'
 import paintStreak2 from '../assets/images/paint-streak-2.png'
+import ccPersonProfile from '../assets/images/fun/ccperson-profile.png'
+import openSignOff from '../assets/images/fun/open-sign-off.png'
+import openSignOn from '../assets/images/fun/open-sign-on.png'
 
 function Home() {
   document.title = "Home"
@@ -81,7 +84,14 @@ function Home() {
             <h3>I make software that's mostly games.</h3>
             <p>Currently working on a Unity game set for a 2026 Steam release:</p>
           </div>
-          <iframe className="hero-widget" src="https://store.steampowered.com/widget/4048370/" frameBorder="0" width="646" height="190" />
+          <div className="hero-widget-wrap">
+            <div className="open-sign" aria-hidden="true">
+              <img src={openSignOff} alt="" />
+              <img className="open-sign-on" src={openSignOn} alt="" />
+            </div>
+            <img className="hero-person" src={ccPersonProfile} alt="" />
+            <iframe className="hero-widget" src="https://store.steampowered.com/widget/4048370/" frameBorder="0" width="646" height="190" />
+          </div>
         </div>
 
         <Resume />

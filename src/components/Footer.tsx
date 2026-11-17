@@ -1,13 +1,14 @@
+import type { ReactNode } from 'react'
 import './Footer.css'
 
 import face from "../assets/images/easter-face.png"
 import { siteInfo } from '../data/siteInfo'
 
-function Footer() {
+function Footer({ children }: { children?: ReactNode }) {
   const { author, contacts, hosting } = siteInfo
 
   return (
-    <footer id="footer">
+    <footer id="footer" className={children ? "has-decoration" : undefined}>
       <div className="footer-column">
         <div className="footer-item">
           <span>Site by {author}</span>
@@ -31,6 +32,7 @@ function Footer() {
           <a className="footer-link" href={hosting.repoUrl}>{hosting.provider}</a>
         </p>
       </div>
+      {children}
     </footer>
   )
 }

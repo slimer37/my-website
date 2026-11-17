@@ -2,12 +2,14 @@ import { Outlet, useLocation } from "react-router-dom";
 
 import Header from './components/Header.tsx'
 import Footer from './components/Footer.tsx'
+import ccPersonDead from './assets/images/fun/ccperson-dead-cutout.png'
 import ScrollThumb from './components/ScrollThumb.tsx'
 import Waves from './components/Waves.tsx'
 import { lowerWaveLayers, lowerWavesHeight } from './data/waveLayers.ts'
 
 function Root() {
-  const isHome = useLocation().pathname === '/'
+  const { pathname } = useLocation()
+  const isHome = pathname === '/'
 
   return (
     <>
@@ -21,7 +23,9 @@ function Root() {
       <main className="content">
         <Outlet />
       </main>
-      <Footer />
+      <Footer>
+        {pathname === '/games' && <img className="footer-decoration" src={ccPersonDead} alt="" />}
+      </Footer>
       <ScrollThumb />
     </>
   );

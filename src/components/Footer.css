@@ -1,6 +1,7 @@
 footer {
     font-family: 'Jetbrains Mono', sans-serif;
     background-image: linear-gradient(transparent, var(--sec-bg));
+    position: relative;
     padding: 40px 16px;
     color: var(--text);
 
@@ -67,5 +68,31 @@ td {
     .contact-list dt {
         margin-top: 8px;
         opacity: 0.7;
+    }
+}
+
+/* A page can drop a decoration into the footer's bottom-right corner; keep the text clear of it */
+footer.has-decoration {
+    padding-right: 160px;
+}
+
+.footer-decoration {
+    position: absolute;
+    right: 40px;
+    bottom: 16px;
+    width: 96px;
+    transform: rotate(30deg);
+    pointer-events: none;
+}
+
+@media (max-width: 639px) {
+    footer.has-decoration {
+        padding-right: 16px;
+        padding-bottom: 110px;
+    }
+
+    .footer-decoration {
+        right: 20px;
+        width: 72px;
     }
 }

@@ -2,6 +2,7 @@ import { motion } from 'motion/react'
 import { useCallback, useState } from 'react'
 import type { ReactNode } from 'react'
 
+import ccWorkshopBanner from '../assets/images/fun/cc-workshop-banner-cutout.png'
 import ccLogo from '../assets/portfolio/thumbs/cclogo.png'
 import ccThumb from '../assets/portfolio/thumbs/ccthumb.png'
 import emBackground from '../assets/portfolio/thumbs/embackground.png'
@@ -40,6 +41,7 @@ function Tags({ tags }: { tags: string[] }) {
 }
 
 type CardProps = {
+  banner?: string // sits behind the card's top edge, centered
   title: string
   blurb: string
   tags: string[]
@@ -48,9 +50,9 @@ type CardProps = {
   tile: ReactNode
 }
 
-function GameCard({ title, blurb, tags, href, linkLabel, tile }: CardProps) {
-  return (
-    <article className="flex flex-col overflow-hidden rounded-xl border border-black/10 bg-white/70 shadow-sm backdrop-blur-sm">
+function GameCard({ banner, title, blurb, tags, href, linkLabel, tile }: CardProps) {
+  const card = (
+    <article className="relative z-10 flex h-full flex-col overflow-hidden rounded-xl border border-black/10 bg-white/70 shadow-sm backdrop-blur-sm">
       <div className="p-2 pb-0">{tile}</div>
       <div className="flex flex-1 flex-col gap-3 p-5">
         <h3 className="m-0 text-xl font-bold">{title}</h3>
@@ -62,6 +64,20 @@ function GameCard({ title, blurb, tags, href, linkLabel, tile }: CardProps) {
         </a>
       </div>
     </article>
+  )
+
+  if (!banner) return card
+
+  // The overflow-hidden card would clip the banner, so it lives in a wrapper. With two columns it
+  // stands on the rule under the section heading (the section's 20px gap + 2px border above the
+  // grid), centered over the card. On narrow screens the grid is one column and the banner would
+  // cover the heading, so it sits on the card instead and the wrapper reserves its height.
+  return (
+    <div className="relative max-[667px]:mt-[136px]">
+      <img src={banner} alt=""
+        className="pointer-events-none absolute left-1/2 w-80 -translate-x-1/2 bottom-[calc(100%-4px)] min-[668px]:bottom-[calc(100%+22px)]" />
+      {card}
+    </div>
   )
 }
 
@@ -104,6 +120,7 @@ function Games() {
             }
           />
           <GameCard
+            banner={ccWorkshopBanner}
             href="https://slimer37.itch.io/early-store-game"
             title="Counter Chaos (Legacy)"
             blurb="An early version of a store-management game, kept online as a record of where the project started."
