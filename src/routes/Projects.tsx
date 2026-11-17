@@ -55,8 +55,8 @@ const projects: Project[] = [
     tags: ['Unity', 'C#', 'Multiplayer'],
   },
   {
-    title: "Git Extension for Aseprite",
-    blurb: "An Aseprite extension for viewing a sprite's git history. Pick a commit from the File menu and the sprite opens in a new tab as it was at that commit.",
+    title: "Git in Aseprite",
+    blurb: "An Aseprite extension for viewing a sprite's git history.",
     tags: ['Lua', 'Aseprite', 'Git'],
     href: "https://github.com/slimer37/aseprite-git-extension",
     linkLabel: "View on GitHub",
