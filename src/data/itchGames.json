@@ -1,0 +1,95 @@
+[
+  {
+    "id": "4817563",
+    "url": "https://slimer37.itch.io/gmtk-26",
+    "title": "Pay 8 Dollars for Gas Simulator",
+    "thumb": "https://img.itch.zone/aW1nLzI4NzY3MTI5LnBuZw==/315x250%23c/KpxKp6.png",
+    "genre": "Survival",
+    "browser": false
+  },
+  {
+    "id": "3764519",
+    "url": "https://slimer37.itch.io/gmtk-25",
+    "title": "The Tomb of Reese Pond",
+    "thumb": "https://img.itch.zone/aW1nLzIyNTQ1MjAyLnBuZw==/315x250%23c/AWp2ie.png",
+    "browser": true
+  },
+  {
+    "id": "2901991",
+    "url": "https://slimer37.itch.io/gmtk-2024",
+    "title": "Mycosizer: Jam Edition",
+    "thumb": "https://img.itch.zone/aW1nLzE3NDIwODc0LnBuZw==/315x250%23c/aoCaEO.png",
+    "genre": "Strategy",
+    "browser": true
+  },
+  {
+    "id": "2155448",
+    "url": "https://yeofoxeon.itch.io/gmtk-23",
+    "title": "Spectral Mayhem - Nightlight Fortress",
+    "thumb": "https://img.itch.zone/aW1nLzEyNzE2NzAwLnBuZw==/315x250%23c/2UMFJl.png",
+    "genre": "Survival",
+    "blurb": "Take a spooky last stand!",
+    "browser": false
+  },
+  {
+    "id": "1021159",
+    "url": "https://slimer37.itch.io/gtmk-jam-2021",
+    "title": "Electrical Mayhem: Hotwire - The Series",
+    "thumb": "https://img.itch.zone/aW1nLzYxOTg2ODEucG5n/315x250%23c/cVOy4L.png",
+    "genre": "Platformer",
+    "blurb": "An electrifying puzzle platformer!",
+    "browser": true
+  },
+  {
+    "id": "748608",
+    "url": "https://slimer37.itch.io/early-store-game",
+    "title": "Counter Chaos Legacy Editions",
+    "thumb": "https://img.itch.zone/aW1nLzk4MDA4MjQucG5n/315x250%23c/Hg9rTH.png",
+    "genre": "Simulation",
+    "blurb": "Versions from when I first started coding.",
+    "browser": false
+  },
+  {
+    "id": "1997714",
+    "url": "https://slimer37.itch.io/recounter",
+    "title": "RECOUNTER",
+    "thumb": "https://img.itch.zone/aW1nLzExNzQ0MDIyLnBuZw==/315x250%23c/y9jzd7.png",
+    "blurb": "RULE THE COUNTER!",
+    "browser": false
+  },
+  {
+    "id": "1232584",
+    "url": "https://slimer37.itch.io/store-game",
+    "title": "Counter Chaos",
+    "thumb": "https://img.itch.zone/aW1nLzc1NzA4NzgucG5n/315x250%23c/scCPCD.png",
+    "genre": "Simulation",
+    "blurb": "Manage a store.",
+    "browser": false
+  },
+  {
+    "id": "4352264",
+    "url": "https://slimer37.itch.io/stalk-walker-ggj",
+    "title": "Stalk Walker (GGJ 2023)",
+    "thumb": "https://img.itch.zone/aW1nLzI1OTgxNDg1LmpwZw==/315x250%23c/tJx%2Fjp.jpg",
+    "blurb": "A game I made for the 2023 Global Game Jam",
+    "browser": false
+  },
+  {
+    "id": "1616750",
+    "url": "https://slimer37.itch.io/gmtk-jam-2022",
+    "title": "Rolley’s World (of Dice)",
+    "thumb": "https://img.itch.zone/aW1nLzk1NDYwNTcucG5n/315x250%23c/5sD5Ly.png",
+    "genre": "Platformer",
+    "blurb": "Step into the shoes of an innocent die dodging patrons of a casino.",
+    "browser": false
+  },
+  {
+    "id": "700008",
+    "url": "https://slimer37.itch.io/rebound-gmtk-jam-2020",
+    "title": "Rebound",
+    "thumb": "https://img.itch.zone/aW1nLzM5MTcyNzcucG5n/315x250%23c/MExch3.png",
+    "genre": "Platformer",
+    "blurb": "The controls are REBOUND to different actions randomly.",
+    "browser": true
+  }
+]

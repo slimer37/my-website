@@ -5,10 +5,24 @@ import ccLogo from '../assets/portfolio/thumbs/cclogo.png'
 import ccThumb from '../assets/portfolio/thumbs/ccthumb.png'
 import emBackground from '../assets/portfolio/thumbs/embackground.png'
 import titleTile from '../assets/portfolio/thumbs/titletile.png'
-import { ProjectTile } from '../components/ProjectTile'
+import itchGames from '../data/itchGames.json'
+import { ProjectTile, VideoTile } from '../components/ProjectTile'
 import Section from '../components/Section'
 
 import './portfolio.css'
+
+const prototypes = [
+  { id: "XOmTZZrjrbM", title: "3D Spider Animation Test" },
+  { id: "4XTsVQlmsRc", title: "2D Platformer Swinging" },
+  { id: "E6ze2qa9GYc", title: "2D Top-Down Hyphae Controlled Mushroom" },
+  { id: "41PoCimG538", title: "3D Swinging Mushroom" },
+]
+
+const excludedUrls = [
+  "https://slimer37.itch.io/gtmk-jam-2021",
+  "https://slimer37.itch.io/early-store-game",
+]
+const moreGames = itchGames.filter(g => !excludedUrls.includes(g.url))
 
 function Tags({ tags }: { tags: string[] }) {
   return (
@@ -56,20 +70,8 @@ function Games() {
       <div className="mb-10">
         <h1 className="!mb-2 font-display text-5xl">Games</h1>
         <p className="m-0 max-w-2xl text-lg leading-relaxed text-black/70">
-          Jam entries and releases, mostly built in Unity. Everything playable is on itch.io.
+          Jam entries and releases, mostly built in Unity.
         </p>
-        <motion.a
-          href="https://slimer37.itch.io"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-5 inline-flex items-center gap-1.5 rounded-md bg-secondary px-5 py-2.5 font-mono
-                     text-base font-bold !text-white no-underline shadow-sm transition-colors hover:bg-secondary-dark"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-        >
-          Browse all games on itch.io
-          <span className="material-symbols-outlined">arrow_right_alt</span>
-        </motion.a>
       </div>
 
       <Section title="Featured Games">
@@ -107,6 +109,44 @@ function Games() {
               </ProjectTile>
             }
           />
+        </div>
+      </Section>
+
+      <Section
+        title="More on itch.io"
+        subtitle="Everything else from my itch.io profile"
+        action={
+        <motion.a
+          href="https://slimer37.itch.io"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 rounded-md bg-secondary px-4 py-1.5 font-mono
+                     text-sm font-bold !text-white no-underline shadow-sm transition-colors hover:bg-secondary-dark"
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          Browse all games on itch.io
+          <span className="material-symbols-outlined">arrow_right_alt</span>
+        </motion.a>
+        }
+      >
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,240px),1fr))] gap-5">
+          {moreGames.map(g => (
+            <a key={g.id} href={g.url} target="_blank" rel="noopener noreferrer"
+              className="flex flex-col overflow-hidden rounded-xl border border-black/10 bg-white/70 text-inherit no-underline shadow-sm backdrop-blur-sm transition-transform hover:-translate-y-0.5">
+              <img src={g.thumb} alt="" loading="lazy" className="aspect-[315/250] w-full object-cover" />
+              <div className="flex flex-col gap-2 p-4">
+                <h3 className="m-0 text-lg font-bold">{g.title}</h3>
+                <Tags tags={[...(g.genre ? [g.genre] : []), ...(g.browser ? ['Play in browser'] : [])]} />
+              </div>
+            </a>
+          ))}
+        </div>
+      </Section>
+
+      <Section title="Prototypes" subtitle="Short videos of mechanics and animation tests">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,260px),1fr))] gap-5">
+          {prototypes.map(v => <VideoTile key={v.id} videoId={v.id} title={v.title} />)}
         </div>
       </Section>
     </div>
