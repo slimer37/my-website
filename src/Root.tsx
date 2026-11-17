@@ -2,6 +2,7 @@ import { Outlet, useLocation } from "react-router-dom";
 
 import Header from './components/Header.tsx'
 import Footer from './components/Footer.tsx'
+import ScrollThumb from './components/ScrollThumb.tsx'
 import Waves from './components/Waves.tsx'
 import { lowerWaveLayers, lowerWavesHeight } from './data/waveLayers.ts'
 
@@ -21,6 +22,7 @@ function Root() {
         <Outlet />
       </main>
       <Footer />
+      <ScrollThumb />
     </>
   );
 }

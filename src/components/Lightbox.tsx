@@ -21,7 +21,7 @@ export function Lightbox({ item, onClose }: LightboxProps) {
     const root = document.documentElement
     const previousOverflow = root.style.overflow
 
-    root.style.overflow = 'hidden' // the scrollbar gutter is reserved, so nothing shifts
+    root.style.overflow = 'hidden' // desktop has no layout-affecting scrollbar, so nothing shifts
     closeRef.current?.focus()
 
     const onKeyDown = (e: KeyboardEvent) => {

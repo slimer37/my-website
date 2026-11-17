@@ -1,0 +1,35 @@
+.scroll-thumb {
+    display: none;
+}
+
+/* Desktop-style pointers: hide the native bar (and its solid gutter) and show the floating one */
+@media (hover: hover) and (pointer: fine) {
+    html:root {
+        scrollbar-width: none;
+    }
+
+    html::-webkit-scrollbar {
+        display: none;
+    }
+
+    .scroll-thumb {
+        display: block;
+        position: fixed;
+        top: 0;
+        right: 2px;
+        width: 8px;
+        border-radius: 4px;
+        background: var(--secondary);
+        z-index: 10001; /* above the header, below the lightbox */
+        cursor: pointer;
+        touch-action: none;
+        transition: width 120ms ease, right 120ms ease, background-color 120ms ease;
+    }
+
+    .scroll-thumb:hover,
+    .scroll-thumb.dragging {
+        width: 12px;
+        right: 1px;
+        background: var(--secondary-dark);
+    }
+}

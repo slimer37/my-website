@@ -35,7 +35,7 @@
 }
 
 :root {
-  scrollbar-gutter: stable;
+  /* Fallback for touch devices; on desktop ScrollThumb replaces the native bar */
   scrollbar-width: thin;
   scrollbar-color: var(--secondary) transparent;
 }
