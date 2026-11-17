@@ -8,6 +8,7 @@ import emBackground from '../assets/portfolio/thumbs/embackground.png'
 import titleTile from '../assets/portfolio/thumbs/titletile.png'
 import mobBoss from '../assets/portfolio/gallery/mobboss.png'
 import { ProjectTile, VideoTile } from '../components/ProjectTile'
+import Section from '../components/Section'
 
 import './portfolio.css'
 
@@ -17,18 +18,6 @@ const videos = [
   { id: "E6ze2qa9GYc", title: "2D Top-Down Hyphae Controlled Mushroom" },
   { id: "41PoCimG538", title: "3D Swinging Mushroom" },
 ]
-
-function Section({ title, subtitle, children }: { title: string, subtitle?: string, children: ReactNode }) {
-  return (
-    <section className="mb-12">
-      <header className="mb-5 border-b-2 border-black/15 pb-2">
-        <h2 className="!mb-0 text-3xl">{title}</h2>
-        {subtitle && <p className="m-0 mt-1 text-black/60">{subtitle}</p>}
-      </header>
-      {children}
-    </section>
-  )
-}
 
 function Tags({ tags }: { tags: string[] }) {
   return (

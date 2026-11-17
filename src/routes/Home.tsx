@@ -5,6 +5,7 @@ import unityLogo from '../assets/logos/unity_logo.svg';
 import { useId, useState } from 'react';
 import { useReducedMotion } from 'motion/react';
 import Wave from '../components/Wave';
+import Resume from '../components/Resume';
 
 import paintStreak from '../assets/images/paint-streak.png'
 import paintStreak2 from '../assets/images/paint-streak-2.png'
@@ -125,12 +126,17 @@ function Home() {
   return (
     <>
       <div className="front-page">
-        <h1>Hello,</h1>
-        <h3>I make software that's mostly games.</h3>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <p>Currently working on a Unity game set for a 2026 Steam release:</p>
-          <iframe src="https://store.steampowered.com/widget/4048370/" frameBorder="0" width="646" height="190" style={{ alignSelf: 'center' }} />
+        <div className="hero">
+          <div className="hero-text">
+            <h1>Hello,</h1>
+            <h3>I make software that's mostly games.</h3>
+            <p>Currently working on a Unity game set for a 2026 Steam release:</p>
+          </div>
+          <iframe className="hero-widget" src="https://store.steampowered.com/widget/4048370/" frameBorder="0" width="646" height="190" />
         </div>
+
+        <Resume />
+
         <h2 style={{ marginBottom: 0 }}>Tools</h2>
         <hr />
         <div className="tool-section">

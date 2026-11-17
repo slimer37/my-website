@@ -9,6 +9,28 @@
     margin: 10px auto;
 }
 
+/* Intro text sits beside the Steam widget; wraps to a stack on narrow screens */
+.hero {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 32px;
+    margin-bottom: 40px;
+}
+
+.hero-text {
+    flex: 1 1 280px;
+}
+
+.hero-widget {
+    flex: 0 1 646px;
+    max-width: 100%;
+
+    /* The widget's dark card is shorter than its 190px frame (the wishlist bar hangs below it),
+       so centering the frame leaves the card looking high. This offsets by half the difference. */
+    margin-top: 28px;
+}
+
 .tool-section {
     display: flex;
     flex-direction: row;
