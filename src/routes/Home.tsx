@@ -128,7 +128,8 @@ function Home() {
       <div className="front-page">
         <div className="hero">
           <div className="hero-text">
-            <h1>Hello,</h1>
+            <p className="hero-greeting">Hello, I'm</p>
+            <h1 className="hero-name">Alfred Roy Manongsong</h1>
             <h3>I make software that's mostly games.</h3>
             <p>Currently working on a Unity game set for a 2026 Steam release:</p>
           </div>

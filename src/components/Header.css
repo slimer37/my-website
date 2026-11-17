@@ -12,17 +12,6 @@
     z-index: 10000;
 }
 
-.active {
-    font-weight: bold;
-    pointer-events: none;
-}
-
-.nav-btn.active {
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 6px;
-}
-
 .header-group {
     background-color: var(--bg);
     
@@ -30,6 +19,8 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 
     display: flex;
+    align-items: center;
+    justify-content: center;
 
     font-size: 1.2em;
 
@@ -45,47 +36,51 @@
 
 .nav-btn-group {
     display: flex;
-    gap: 5px;
-    margin: 15px;
-
-    align-self: center;
-
-    position: absolute;
-    right: 0;
-
-    height: 70%;
+    gap: 8px;
 }
 
 .nav-btn {
-    height: 100%;
+    position: relative;
+    padding: 6px 18px;
 
-    padding: 0 !important;
+    font-family: 'Inter', sans-serif;
+    font-size: inherit;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-decoration: none;
 
-    background: none !important;
+    color: var(--text);
+    opacity: 0.7;
 
-    display: flex;
-    align-items: center;
-    align-self: center;
-    justify-content: center;
+    transition: opacity 150ms ease, color 150ms ease;
+}
 
-    width: 150px;
+/* Underline that grows from the center on hover and stays on the current page */
+.nav-btn::after {
+    content: '';
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    bottom: 0;
+    height: 2px;
+    border-radius: 1px;
+    background: var(--secondary);
 
-    font-size: inherit !important
+    transform: scaleX(0);
+    transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .nav-btn:hover {
-    font-size: 1.1em !important
+    opacity: 1;
 }
 
-.scaled-logo {
-  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-  transform-origin: left;
-  transform: scale(1);
-  text-decoration: none;
-  color: var(--text);
-  align-self: center;
+.nav-btn:hover::after,
+.nav-btn.active::after {
+    transform: scaleX(1);
 }
 
-.scaled-logo:hover {
-  transform: scale(1.04);
+.nav-btn.active {
+    opacity: 1;
+    color: var(--secondary-dark);
+    pointer-events: none;
 }
