@@ -50,7 +50,7 @@ function Gallery() {
       <h1 style={{ textAlign: 'center' }}>3D Art Gallery</h1>
       <h3 style={{ textAlign: 'center' }}>Click on any square to view the original image.</h3>
       <div className="gallery-grid">
-        <VideoTile file="mobboss.mp4" inner={<>Pokémon Mafia</>} />
+        <VideoTile file="mobboss.mp4" inner={<>Pokemon Mafia</>} />
         <ArtTile file="boxcutter.jpg" inner={<><q>Boxcutter</q>&nbsp;Boss</>} />
         <ArtTile file="gramophone.png" inner={<>Gramophone</>} />
         <VideoTile file="spacerotate.mp4" inner={<>Personality Cores</>} />
