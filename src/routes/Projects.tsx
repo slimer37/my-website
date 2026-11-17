@@ -11,7 +11,7 @@ type Project = {
 const projects: Project[] = [
   {
     title: "Advanced Image Analysis Platform",
-    blurb: "Built for Western Digital as a client. A desktop GUI for Meta's Segment Anything Model (SAM) that generates, edits, and measures image segmentation masks. Mask generation and upscaling run on a Flask server, and the Qt client adds guided annotation, filtering, and measurement tools.",
+    blurb: "Built for Western Digital as a client. A desktop GUI for Meta's Segment Anything Model that generates, edits, and measures image segmentation masks.",
     tags: ['Python', 'Qt', 'Flask', 'SAM'],
     href: "https://github.com/slimer37/CSE120-G310-WD-AIA",
     linkLabel: "View on GitHub",
@@ -28,6 +28,18 @@ const projects: Project[] = [
     blurb: "A computer vision app that uses tracking markers to identify a marked deck and advise Blackjack moves for practice.",
     tags: ['Computer Vision', 'Fiducial Markers'],
     href: "https://github.com/slimer37/TabletopPDA",
+    linkLabel: "View on GitHub",
+  },
+  {
+    title: "Games Change Minds Lab - Tobacco Education",
+    blurb: "A grant-funded project for which I was the sole Unity developer, as part of a psychology research group at UC Merced. I added multiplayer to an existing Unity 3D first-person game, along with numerous puzzle features.",
+    tags: ['Unity', 'C#', 'Multiplayer'],
+  },
+  {
+    title: "FoxBotPy",
+    blurb: "A simple, customizable Twitch bot with a desktop GUI.",
+    tags: ['Python', 'Twitch', 'GUI'],
+    href: "https://github.com/slimer37/FoxBotPy",
     linkLabel: "View on GitHub",
   },
   {
